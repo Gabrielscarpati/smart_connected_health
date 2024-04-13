@@ -29,7 +29,6 @@ class _FooterLogInState extends State<FooterLogIn> {
           buttonText: 'LOG IN',
           onPressed: () async {
             AppRoutes.push(context, const ChartScreen());
-
             controller.reset();
           },
           controller: controller,

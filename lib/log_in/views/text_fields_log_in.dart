@@ -1,5 +1,6 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smart_connected_health/provider/user_provider.dart';
 
 import '../../widgets/widgets.dart';
 
@@ -13,25 +14,8 @@ class TextFieldsLogIn extends StatefulWidget {
 class _TextFieldsLogInState extends State<TextFieldsLogIn> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController signUpEmail = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-
-    String? validateEmailSignUp(String? value) {
-      String email = signUpEmail.text.trim();
-      if (!EmailValidator.validate(email)) {
-        return "Enter a valid Email";
-      } else {
-        return null;
-      }
-    }
-
-    String? validatePasswordSignUp(String? password) {
-      if (password == null || password.length < 6) {
-        return "Password must contain at least 6 characters";
-      } else {
-        return null;
-      }
-    }
+    LogInSignUpProvider logInSignUpProvider =
+        context.read<LogInSignUpProvider>();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -39,8 +23,8 @@ class _TextFieldsLogInState extends State<TextFieldsLogIn> {
         TextFieldLogInSignUp(
           title: 'Email',
           hint: 'Email',
-          texFieldController: signUpEmail,
-          validator: validateEmailSignUp,
+          texFieldController: logInSignUpProvider.logInEmail,
+          validator: logInSignUpProvider.validateEmailLogIn,
           prefixIcon: Icons.email_outlined,
           suffixIcon: Icons.close,
           deleteOrHide: 'delete',
@@ -48,8 +32,8 @@ class _TextFieldsLogInState extends State<TextFieldsLogIn> {
         TextFieldLogInSignUp(
           title: 'Password',
           hint: 'Enter Password',
-          texFieldController: passwordController,
-          validator: validatePasswordSignUp,
+          texFieldController: logInSignUpProvider.logInPassword,
+          validator: logInSignUpProvider.validatePasswordLogIn,
           prefixIcon: Icons.lock_outline,
           suffixIcon: Icons.close,
           deleteOrHide: 'hide',

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "112427281537",
+    "project_id": "mood-sync-1ef01",
+    "storage_bucket": "mood-sync-1ef01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112427281537:android:8dff789dc76aacb61c3180",
+        "android_client_info": {
+          "package_name": "com.example.smart_connected_health"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABWjfAh2Kg-aC7N1ZZ2Z3nam1T_MrkQ3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,7 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../provider/user_provider.dart';
 import '../../widgets/widgets.dart';
 
 class TextFieldsSignUp extends StatefulWidget {
@@ -11,53 +12,55 @@ class TextFieldsSignUp extends StatefulWidget {
 }
 
 class _TextFieldsSignUpState extends State<TextFieldsSignUp> {
-  TextEditingController signUpEmail = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-
-  String? validatePasswordSignUp(String? password) {
-    if (password == null || password.length < 6) {
-      return "Password must contain at least 6 characters";
-    } else {
-      return null;
-    }
-  }
-
-  String? validateEmailSignUp(String? value) {
-    String email = signUpEmail.text.trim();
-    if (!EmailValidator.validate(email)) {
-      return "Enter a valid Email";
-    } else {
-      return null;
-    }
-  }
-
-  String? confirmPassword(String? value) {
-    if (passwordController.text != confirmPasswordController.text) {
-      return "Passwords do not match";
-    } else {
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    LogInSignUpProvider logInSignUpProvider =
+        context.watch<LogInSignUpProvider>();
+
     return Column(
       children: [
         TextFieldLogInSignUp(
           title: 'Email',
           hint: 'Email',
-          texFieldController: signUpEmail,
-          validator: validateEmailSignUp,
+          texFieldController: logInSignUpProvider.signUpEmail,
+          validator: logInSignUpProvider.validateEmailSignUp,
           prefixIcon: Icons.email,
+          suffixIcon: Icons.close,
+          deleteOrHide: 'delete',
+        ),
+        TextFieldLogInSignUp(
+          title: 'First Name',
+          hint: 'Enter First Name',
+          texFieldController: logInSignUpProvider.signUpFirstName,
+          validator: (value) {
+            if (logInSignUpProvider.signUpFirstName.text.isEmpty) {
+              return 'Please enter your first name';
+            }
+            return null;
+          },
+          prefixIcon: Icons.person,
+          suffixIcon: Icons.close,
+          deleteOrHide: 'delete',
+        ),
+        TextFieldLogInSignUp(
+          title: 'Last Name',
+          hint: 'Enter Last Name',
+          texFieldController: logInSignUpProvider.signUpLastName,
+          validator: (value) {
+            if (logInSignUpProvider.signUpLastName.text.isEmpty) {
+              return 'Please enter your last name';
+            }
+            return null;
+          },
+          prefixIcon: Icons.person,
           suffixIcon: Icons.close,
           deleteOrHide: 'delete',
         ),
         TextFieldLogInSignUp(
           title: 'Password',
           hint: 'Password',
-          texFieldController: passwordController,
-          validator: validatePasswordSignUp,
+          texFieldController: logInSignUpProvider.signUpPassword,
+          validator: logInSignUpProvider.validatePasswordSignUp,
           prefixIcon: Icons.lock,
           suffixIcon: Icons.close,
           deleteOrHide: 'hide',
@@ -65,8 +68,8 @@ class _TextFieldsSignUpState extends State<TextFieldsSignUp> {
         TextFieldLogInSignUp(
           title: 'Confirm Password',
           hint: 'Confirm Password',
-          texFieldController: confirmPasswordController,
-          validator: confirmPassword,
+          texFieldController: logInSignUpProvider.signUpConfirmPassword,
+          validator: logInSignUpProvider.validateConfirmPassword,
           prefixIcon: Icons.lock_reset,
           suffixIcon: Icons.close,
           deleteOrHide: 'hide',

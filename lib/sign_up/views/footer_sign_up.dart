@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../charts/chat_screen.dart';
 import '../../design_system/colors.dart';
 import '../../design_system/ds_text.dart';
 import '../../log_in/log_in_screen.dart';
+import '../../provider/user_provider.dart';
 import '../../ultils/app_routes.dart';
 import '../../widgets/loading_buttom.dart';
 
@@ -20,6 +22,9 @@ class _FooterSignUpState extends State<FooterSignUp> {
 
   @override
   Widget build(BuildContext context) {
+    LogInSignUpProvider logInSignUpProvider =
+        context.watch<LogInSignUpProvider>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -38,9 +43,9 @@ class _FooterSignUpState extends State<FooterSignUp> {
           isButtonEnabled: true,
           buttonText: 'SIGN UP',
           onPressed: () async {
+            await logInSignUpProvider.checkConditionsSignUpUser(context);
             AppRoutes.push(context, const ChartScreen());
-
-            controller.start();
+            controller.reset();
           },
           controller: controller,
         ),
@@ -105,7 +110,7 @@ class _FooterSignUpState extends State<FooterSignUp> {
               ),
             ],
           ),
-          onTap: () {
+          onTap: () async {
             AppRoutes.replace(context, const LogInScreen());
           },
         ),

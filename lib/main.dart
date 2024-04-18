@@ -7,6 +7,8 @@ import 'package:smart_connected_health/provider/user_provider.dart';
 import 'charts/chat_screen.dart';
 import 'log_in/log_in_screen.dart';
 
+//syncfusion_flutter_charts
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -42,3 +44,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//syncfusion_flutter_charts: ^24.1.41
+//sentiment score on the y
+//axis and the days on the x axis

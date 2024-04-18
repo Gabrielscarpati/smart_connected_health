@@ -54,7 +54,7 @@ class _ChartScreenState extends State<ChartScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 312,
                       width: 360,
                       child: Padding(

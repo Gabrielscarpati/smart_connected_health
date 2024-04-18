@@ -13,6 +13,7 @@ class TextFieldLogInSignUp extends StatefulWidget {
   final String deleteOrHide;
   final Color? enabledBorderColor;
   final void Function()? onTapSuffixIcon;
+  final int? maxLines;
 
   const TextFieldLogInSignUp({
     Key? key,
@@ -25,6 +26,7 @@ class TextFieldLogInSignUp extends StatefulWidget {
     required this.title,
     this.onTapSuffixIcon,
     this.enabledBorderColor,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -53,6 +55,7 @@ class _TextFieldLogInSignUpState extends State<TextFieldLogInSignUp> {
           obscureText: widget.deleteOrHide == 'hide' ? passwordIsHidden : false,
           controller: widget.texFieldController,
           cursorColor: DSColors.primaryActionState1,
+          maxLines: widget.maxLines ?? 1,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(
                 left: widget.prefixIcon == null ? 16 : 0, top: 12, bottom: 12),

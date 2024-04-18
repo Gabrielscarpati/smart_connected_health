@@ -10,6 +10,7 @@ import 'log_in/log_in_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  //FirebaseAuth.instance.signOut();
 
   runApp(
     MultiProvider(

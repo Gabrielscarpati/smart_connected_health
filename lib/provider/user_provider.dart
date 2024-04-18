@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
@@ -137,6 +138,27 @@ class LogInSignUpProvider with ChangeNotifier {
         userId: await firebaseManager.getUserCurrentID(),
       );
       notifyListeners();
+    }
+  }
+
+  String userFirstName = '';
+  Future<String> getFirstNameByUserId(String userId) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      DocumentSnapshot userDoc =
+          await firestore.collection('users').doc(userId).get();
+
+      if (userDoc.exists && userDoc.data() != null) {
+        String firstName =
+            (userDoc.data() as Map<String, dynamic>)['firstName'];
+        return firstName;
+      } else {
+        throw Exception('User not found or no data available.');
+      }
+    } catch (e) {
+      print('Error getting user: $e');
+      throw e;
     }
   }
 }

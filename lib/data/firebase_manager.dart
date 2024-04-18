@@ -47,8 +47,6 @@ class FirebaseManager {
           .signInWithEmailAndPassword(email: email, password: password);
 
       if (userCredential.user != null) {
-        /*  UserEntity user =
-            await UserController().searchUser(userCredential.user!.uid);*/
         return userCredential.user;
       }
     } on FirebaseAuthException catch (e) {

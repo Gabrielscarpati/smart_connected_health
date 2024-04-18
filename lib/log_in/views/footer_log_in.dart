@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:smart_connected_health/charts/chat_screen.dart';
 
 import '../../design_system/colors.dart';
 import '../../design_system/ds_text.dart';
+import '../../provider/user_provider.dart';
 import '../../sign_up/sign_up_screen.dart';
 import '../../ultils/app_routes.dart';
 import '../../widgets/loading_buttom.dart';
@@ -17,8 +19,12 @@ class FooterLogIn extends StatefulWidget {
 
 class _FooterLogInState extends State<FooterLogIn> {
   RoundedLoadingButtonController controller = RoundedLoadingButtonController();
+
   @override
   Widget build(BuildContext context) {
+    LogInSignUpProvider logInSignUpProvider =
+        context.watch<LogInSignUpProvider>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -28,6 +34,8 @@ class _FooterLogInState extends State<FooterLogIn> {
         LoadingButton(
           buttonText: 'LOG IN',
           onPressed: () async {
+            await logInSignUpProvider.checkConditionsLogInUser(context);
+
             AppRoutes.push(context, const ChartScreen());
             controller.reset();
           },
